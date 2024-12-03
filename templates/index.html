@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Laptop Price Prediction</title>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <a href="https://github.com/Collinceselly/laptop_price_prediction" class="top-left-link" target="_blank">GitHub Repository Link</a>
+    <h1>Laptop Price Prediction - Collince Selly</h1>
+    <img src="{{url_for('static', filename='/images/your_profile_pic.jpg')}}" alt="Your Profile Picture" class="profile">
+    <div class="form-box">
+    <form action="{{url_for('predict_datapoint')}}" method="POST">
+        <div class="form-group">
+            <label for="inches">Inches:</label>
+            <input type="text" id="inches" name="Inches" placeholder="Enter Inches value (float)" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="cpu_frequency">CPU_Frequency:</label>
+            <input type="text" id="cpu_frequency" name="CPU_Frequency" placeholder="Enter CPU_Frequency value (float)" required>
+        </div>
+
+        <div class="form-group">  
+            <label for="ram">RAM:</label>
+            <input type="text" id="ram" name="RAM" placeholder="Enter RAM value (float)" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="Weight" placeholder="Enter Weight value (float)" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Company:</label>
+            <select id="company" name="Company" required>
+                <option value="Apple">Apple</option>
+                <option value="HP">HP</option>
+                <option value="Acer">Acer</option>
+                <option value="Asus">Asus</option>
+                <option value="Dell">Dell</option>
+                <option value="Lenovo">Lenovo</option>
+                <option value="Chuwi">Chuwi</option>
+                <option value="MSI">MSI</option>
+                <option value="Toshiba">Toshiba</option>
+                <option value="Huawei">Huawei</option>
+                <option value="Xiaomi">Xiaomi</option>
+                <option value="Vero">Vero</option>
+                <option value="Razer">Razer</option>
+                <option value="Mediacom">Mediacom</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Google">Google</option>
+                <option value="Fujitsu">Fujitsu</option>
+                <option value="LG">LG</option>
+                <option value="Microsoft">Microsoft</option>
+            </select>
+        </div>
+      
+    <div class="form-group">
+      <label for="typename">TypeName:</label>
+      <select id="typename" name="TypeName" required>
+        <option value="Ultrabook">Ultrabook</option>
+        <option value="Notebook">Notebook</option>
+        <option value="Netbook">Netbook</option>
+        <option value="Gaming">Gaming</option>
+        <option value="2 in 1 Convertible">2 in 1 Convertible</option>
+        <option value="Workstation">Workstation</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+        <label for="cpu_company">CPU_Company:</label>
+        <select id="cpu_company" name="CPU_Company" required>
+            <option value="Intel">Intel</option>
+            <option value="AMD">AMD</option>
+            <option value="Samsung">Samsung</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="gpu_company">GPU_Company:</label>
+        <select id="gpu_company" name="GPU_Company" required>
+            <option value="Intel">Intel</option>
+            <option value="AMD">AMD</option>
+            <option value="Nvidia">Nvidia</option>
+            <option value="ARM">ARM</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="">Operating System:</label>
+        <select id="opsys" name="OpSys" required>
+            <option value="macOS">macOS</option>
+            <option value="No OS">No OS</option>
+            <option value="Windows 10">Windows 10</option>
+            <option value="Mac OS X">Mac OS X</option>
+            <option value="Linux">Linux</option>
+            <option value="Android">Android</option>
+            <option value="Windows 10 S">Windows 10 S</option>
+            <option value="Chrome OS">Chrome OS</option>
+            <option value="Windows 7">Windows 7</option>
+        </select>
+    </div>
+      
+    <div class="form-group">
+      <label for="memory">Memory:</label>
+      <select id="memory" name="Memory" required>
+        <option value="128GB SSD">128GB SSD</option>
+        <option value="128GB Flash Storage">128GB Flash Storage</option>
+        <option value="256GB SSD">256GB SSD</option>
+        <option value="512GB SSD">512GB SSD</option>
+        <option value="500GB HDD">500GB HDD</option>
+        <option value="256GB Flash Storage">256GB Flash Storage</option>
+        <option value="1TB HDD">1TB HDD</option>
+        <option value="32GB Flash Storage">32GB Flash Storage</option>
+        <option value="128GB SSD +  1TB HDD">128GB SSD +  1TB HDD</option>
+        <option value="256GB SSD +  256GB SSD">256GB SSD +  256GB SSD</option>
+        <option value="64GB Flash Storage">64GB Flash Storage</option>
+        <option value="256GB SSD +  1TB HDD">256GB SSD +  1TB HDD</option>
+        <option value="256GB SSD +  2TB HDD">256GB SSD +  2TB HDD</option>
+        <option value="32GB SSD">32GB SSD</option>
+        <option value="2TB HDD">2TB HDD</option>
+        <option value="64GB SSD">64GB SSD</option>
+        <option value="1.0TB Hybrid">1.0TB Hybrid</option>
+        <option value="512GB SSD +  1TB HDD">512GB SSD +  1TB HDD</option>
+        <option value="1TB SSD">1TB SSD</option>
+        <option value="256GB SSD +  500GB HDD">256GB SSD +  500GB HDD</option>
+        <option value="128GB SSD +  2TB HDD">128GB SSD +  2TB HDD</option>
+        <option value="512GB SSD +  512GB SSD">512GB SSD +  512GB SSD</option>
+        <option value="16GB SSD">16GB SSD</option>
+        <option value="16GB Flash Storage">16GB Flash Storage</option>
+        <option value="512GB SSD +  256GB SSD">512GB SSD +  256GB SSD</option>
+        <option value="512GB SSD +  2TB HDD">512GB SSD +  2TB HDD</option>
+        <option value="64GB Flash Storage +  1TB HDD">64GB Flash Storage +  1TB HDD</option>
+        <option value="180GB SSD">180GB SSD</option>
+        <option value="1TB HDD +  1TB HDD">1TB HDD +  1TB HDD</option>
+        <option value="32GB HDD">32GB HDD</option>
+        <option value="1TB SSD +  1TB HDD">1TB SSD +  1TB HDD</option>
+        <option value="512GB Flash Storage">512GB Flash Storage</option>
+        <option value="128GB HDD">128GB HDD</option>
+        <option value="240GB SSD">240GB SSD</option>
+        <option value="8GB SSD">8GB SSD</option>
+        <option value="508GB Hybrid">1TB HDD</option>
+        <option value="1TB HDD">508GB Hybrid</option>
+        <option value="1.0TB HDD">1.0TB HDD</option>
+        <option value="512GB SSD +  1.0TB Hybrid">512GB SSD +  1.0TB Hybrid</option>
+        <option value="256GB SSD +  1.0TB Hybrid">256GB SSD +  1.0TB Hybrid</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="screenresolution">ScreenResolution:</label>
+      <select id="screenresolution" name="ScreenResolution" required>
+        <option value="IPS Panel Retina Display 2560x1600">IPS Panel Retina Display 2560x1600</option>
+        <option value="1440x900">1440x900</option>
+        <option value="Full HD 1920x1080">Full HD 1920x1080</option>
+        <option value="IPS Panel Retina Display 2880x1800">IPS Panel Retina Display 2880x1800</option>
+        <option value="1366x768">1366x768</option>
+        <option value="IPS Panel Full HD 1920x1080">IPS Panel Full HD 1920x1080</option>
+        <option value="IPS Panel Retina Display 2304x1440">IPS Panel Retina Display 2304x1440</option>
+        <option value="IPS Panel Full HD / Touchscreen 1920x1080">IPS Panel Full HD / Touchscreen 1920x1080</option>
+        <option value="Full HD / Touchscreen 1920x1080">Full HD / Touchscreen 1920x1080</option>
+        <option value="Touchscreen / Quad HD+ 3200x1800">Touchscreen / Quad HD+ 3200x1800</option>
+        <option value="IPS Panel Touchscreen 1920x1200">IPS Panel Touchscreen 1920x1200</option>
+        <option value="Touchscreen 2256x1504">Touchscreen 2256x1504</option>
+        <option value="Quad HD+ / Touchscreen 3200x1800">Quad HD+ / Touchscreen 3200x1800</option>
+        <option value="IPS Panel 1366x768">IPS Panel 1366x768</option>
+        <option value="IPS Panel 4K Ultra HD / Touchscreen 3840x2160">IPS Panel 4K Ultra HD / Touchscreen 3840x2160</option>
+        <option value="IPS Panel Full HD 2160x1440">IPS Panel Full HD 2160x1440</option>
+        <option value="4K Ultra HD / Touchscreen 3840x2160">4K Ultra HD / Touchscreen 3840x2160</option>
+        <option value="Touchscreen 2560x1440">Touchscreen 2560x1440</option>
+        <option value="1600x900">1600x900</option>
+        <option value="IPS Panel 4K Ultra HD 3840x2160">IPS Panel 4K Ultra HD 3840x2160</option>
+        <option value="4K Ultra HD 3840x2160">4K Ultra HD 3840x2160</option>
+        <option value="Touchscreen 1366x768">Touchscreen 1366x768</option>
+        <option value="IPS Panel Full HD 1366x768">IPS Panel Full HD 1366x768</option>
+        <option value="IPS Panel 2560x1440">IPS Panel 2560x1440</option>
+        <option value="IPS Panel Full HD 2560x1440">IPS Panel Full HD 2560x1440</option>
+        <option value="IPS Panel Retina Display 2736x1824">IPS Panel Retina Display 2736x1824</option>
+        <option value="Touchscreen 2400x1600">Touchscreen 2400x1600</option>
+        <option value="2560x1440">2560x1440</option>
+        <option value="IPS Panel Quad HD+ 2560x1440">IPS Panel Quad HD+ 2560x1440</option>
+        <option value="IPS Panel Quad HD+ 3200x1800">IPS Panel Quad HD+ 3200x1800</option>
+        <option value="IPS Panel Quad HD+ / Touchscreen 3200x1800">IPS Panel Quad HD+ / Touchscreen 3200x1800</option>
+        <option value="IPS Panel Touchscreen 1366x768">IPS Panel Touchscreen 1366x768</option>
+        <option value="1920x1080">1920x1080</option>
+        <option value="IPS Panel Full HD 1920x1200">IPS Panel Full HD 1920x1200</option>
+        <option value="IPS Panel Touchscreen / 4K Ultra HD 3840x2160">IPS Panel Touchscreen / 4K Ultra HD 3840x2160</option>
+        <option value="IPS Panel Touchscreen 2560x1440">IPS Panel Touchscreen 2560x1440</option>
+        <option value="Touchscreen / Full HD 1920x1080">Touchscreen / Full HD 1920x1080</option>
+        <option value="Quad HD+ 3200x1800">Quad HD+ 3200x1800</option>
+        <option value="Touchscreen / 4K Ultra HD 3840x2160">Touchscreen / 4K Ultra HD 3840x2160</option>
+        <option value="IPS Panel Touchscreen 2400x1600">IPS Panel Touchscreen 2400x1600</option>
+       
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="product">Product:</label>
+        <select id="product" name="Product" required>
+    <!-- <select id="dropdown" style="width: 50%;"></select> -->
+
+    <script>
+        $(document).ready(function () {
+            // Fetch data from backend
+            $.getJSON('/get_products', function (data) {
+                // Populate dropdown options
+                data.forEach(function (item) {
+                    $('#product').append(new Option(item, item));
+                });
+
+                // Initialize Select2
+                $('#product').select2({
+                    placeholder: 'Search a product',
+                    allowClear: true,
+                });
+            });
+        });
+    </script>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="gpu_type">GPU_Type:</label>
+        <select id="gpu_type" name="GPU_Type" required>
+    <!-- <select id="dropdown" style="width: 50%;"></select> -->
+
+    <script>
+        $(document).ready(function () {
+            // Fetch data from backend
+            $.getJSON('/get_gpu_type', function (data) {
+                // Populate dropdown options
+                data.forEach(function (item) {
+                    $('#gpu_type').append(new Option(item, item));
+                });
+
+                // Initialize Select2
+                $('#gpu_type').select2({
+                    placeholder: 'Search a GPU_TYPE',
+                    allowClear: true,
+                });
+            });
+        });
+    </script>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="cpu_type">CPU_Type:</label>
+        <select id="cpu_type" name="CPU_Type" required>
+    <!-- <select id="dropdown" style="width: 50%;"></select> -->
+
+    <script>
+        $(document).ready(function () {
+            // Fetch data from backend
+            $.getJSON('/get_cpu_type', function (data) {
+                // Populate dropdown options
+                data.forEach(function (item) {
+                    $('#cpu_type').append(new Option(item, item));
+                });
+
+                // Initialize Select2
+                $('#cpu_type').select2({
+                    placeholder: 'Search a CPU_TYPE',
+                    allowClear: true,
+                });
+            });
+        });
+    </script>
+        </select>
+    </div>
+
+    <div style="clear:both;"></div>
+      <input type="submit" value="Submit">
+    </form>
+    </div>
+    <div>      
+    <h2>
+      Predicted Laptop Price is : {{ results }}
+    </h2>
+
+    <!-- <script>
+        // Fetch the product list when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/get_products')
+                .then(response => response.json())
+                .then(data => {
+                    const dropdown = document.getElementById('product-dropdown');
+                    data.forEach(product => {
+                        const option = document.createElement('option');
+                        option.value = product;
+                        option.textContent = product;
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        });
+    </script> -->
+
+
+
+  </body>
+</html>
